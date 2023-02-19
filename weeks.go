@@ -10,17 +10,11 @@ import (
 )
 
 const (
-	// NOTE: PST didn't parse properly (was still -0000 despite displaying PST)
+	// NOTE: PST doesn't parse properly (was still -0000 despite displaying PST)
 	// GitHub Issue: https://github.com/golang/go/issues/24071
 	// "It is not a goal that time.Time.Format and time.Parse be exact reverses of each other."
 	layout     = "2006-01-02 3:04 PM"
 	dateFormat = "Monday, January 2, 2006 at 3:04 PM MST"
-
-	// Alberta life expectancy is 79-80 years for males and 83-84 years for females
-	// Source: https://www.cpp.ca/blog/what-is-the-life-expectancy-in-canada/
-	lifeExpectancy = 80
-	// 52 weeks/year (more or less)
-	weeksPerYear = 52
 )
 
 // Parse date/time with IANA Time Zone
@@ -62,7 +56,4 @@ func main() {
 
 	weeks, days, hours, minutes := convertDuration(duration)
 	fmt.Printf("Alive for %d weeks, %d days, %d hours, and %d minutes.\n\n", weeks, days, hours, minutes)
-
-	remainingWeeks := (lifeExpectancy * weeksPerYear) - weeks
-	fmt.Printf("Estimated weeks remaining: %d\n", remainingWeeks)
 }
