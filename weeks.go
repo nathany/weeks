@@ -56,10 +56,10 @@ func parseTime(date, zone string) (time.Time, error) {
 
 // Convert duration to an integer number of weeks, days, hours, and minutes
 func convertDuration(duration time.Duration) (weeks, days, hours, minutes float64) {
-	hours = duration.Hours()
-	weeks, hours = divMod(hours, 24*7)
-	days, hours = divMod(hours, 24)
-	hours, minutes = divMod(hours*60, 60)
+	minutes = duration.Minutes()
+	weeks, minutes = divMod(minutes, 24*7*60)
+	days, minutes = divMod(minutes, 24*60)
+	hours, minutes = divMod(minutes, 60)
 
 	return weeks, days, hours, minutes
 }
