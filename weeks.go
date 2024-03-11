@@ -10,11 +10,12 @@ import (
 )
 
 const (
-	// NOTE: PST doesn't parse properly (was still -0000 despite displaying PST)
+	// NOTE: PST doesn't parse (was still -0000 despite displaying PST)
 	// GitHub Issue: https://github.com/golang/go/issues/24071
 	// "It is not a goal that time.Time.Format and time.Parse be exact reverses of each other."
+	// Time zone abbreviations such as "CST" are ambiguous: https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations
 	layout     = "2006-01-02 3:04 PM"
-	dateFormat = "Monday, January 2, 2006 at 3:04 PM MST"
+	dateFormat = "Monday, January 2, 2006 at 3:04 PM (MST)"
 )
 
 // Parse date/time with IANA Time Zone
@@ -50,10 +51,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Printf("Born on %v\n", birthdate.Format(dateFormat))
-	fmt.Printf("Current time is %v\n\n", time.Now().Format(dateFormat))
+	fmt.Printf("The current time is %v\n\n", time.Now().Format(dateFormat))
+
+	fmt.Printf("Nathan was born on %v\n", birthdate.Format(dateFormat))
 	duration := time.Since(birthdate)
 
 	weeks, days, hours, minutes := convertDuration(duration)
-	fmt.Printf("Alive for %d weeks, %d days, %d hours, and %d minutes.\n\n", weeks, days, hours, minutes)
+	fmt.Printf("He has been alive for %d weeks, %d days, %d hours and %d minutes.\n", weeks, days, hours, minutes)
 }
