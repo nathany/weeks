@@ -1,5 +1,4 @@
 // Calculates my age in weeks
-// Verified with https://www.timeanddate.com/date/timezoneduration.html
 package main
 
 import (
@@ -50,7 +49,7 @@ func parseTime(date, zone string) (time.Time, error) {
 	return time.ParseInLocation(parseLayout, date, loc)
 }
 
-// Convert duration to an integer number of weeks, days, hours, and minutes
+// Convert duration to weeks, days, hours, and minutes
 func convertDuration(duration time.Duration) (weeks, days, hours, minutes float64) {
 	minutes = duration.Minutes()
 	weeks, minutes = divMod(minutes, 24*7*60)
