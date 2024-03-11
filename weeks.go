@@ -33,7 +33,7 @@ func main() {
 		fmt.Printf("Error: %v", err)
 		os.Exit(1)
 	}
-	weeks, days, hours, minutes := convertDuration(time.Since(birth))
+	weeks, days, hours, minutes := splitDuration(time.Since(birth))
 
 	fmt.Printf("The current time is %v\n\n", time.Now().Format(dateFormat))
 	fmt.Printf("%v was born on %v\n", name, birth.Format(dateFormat))
@@ -41,16 +41,16 @@ func main() {
 }
 
 // Parse date/time with IANA Time Zone
-func parseTime(date, zone string) (time.Time, error) {
+func parseTime(dateTime, zone string) (time.Time, error) {
 	loc, err := time.LoadLocation(zone)
 	if err != nil {
 		return time.Time{}, err
 	}
-	return time.ParseInLocation(parseLayout, date, loc)
+	return time.ParseInLocation(parseLayout, dateTime, loc)
 }
 
-// Convert duration to weeks, days, hours, and minutes
-func convertDuration(duration time.Duration) (weeks, days, hours, minutes float64) {
+// Split duration into weeks, days, hours, and minutes
+func splitDuration(duration time.Duration) (weeks, days, hours, minutes float64) {
 	minutes = duration.Minutes()
 	weeks, minutes = divMod(minutes, 7*24*60)
 	days, minutes = divMod(minutes, 24*60)
