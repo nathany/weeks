@@ -52,7 +52,7 @@ func parseTime(date, zone string) (time.Time, error) {
 // Convert duration to weeks, days, hours, and minutes
 func convertDuration(duration time.Duration) (weeks, days, hours, minutes float64) {
 	minutes = duration.Minutes()
-	weeks, minutes = divMod(minutes, 24*7*60)
+	weeks, minutes = divMod(minutes, 7*24*60)
 	days, minutes = divMod(minutes, 24*60)
 	hours, minutes = divMod(minutes, 60)
 
