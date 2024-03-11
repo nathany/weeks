@@ -9,6 +9,15 @@ import (
 	"time"
 )
 
+// Me
+const (
+	name      = "Nathan"
+	pronoun   = "He"
+	birthTime = "1977-04-05 11:58 AM"
+	birthZone = "America/Vancouver"
+)
+
+// Formats to parse and display times
 const (
 	// NOTE: PST doesn't parse (was still -0000 despite displaying PST)
 	// GitHub Issue: https://github.com/golang/go/issues/24071
@@ -18,29 +27,18 @@ const (
 	dateFormat  = "Monday, January 2, 2006 at 3:04 PM (MST)"
 )
 
-// Person struct
-type Person struct {
-	name      string
-	pronoun   string
-	birthTime time.Time
-}
-
 func main() {
 	// NOTE: Returns time in PST because daylight saving time started in B.C. on Sunday, April 24, 1977
-	birthTime, err := parseTime("1977-04-05 11:58 AM", "America/Vancouver")
+	when, err := parseTime(birthTime, birthZone)
 	if err != nil {
 		fmt.Printf("Error: %v", err)
 		os.Exit(1)
 	}
-
-	person := Person{name: "Nathan", pronoun: "He", birthTime: birthTime}
+	weeks, days, hours, minutes := convertDuration(time.Since(when))
 
 	fmt.Printf("The current time is %v\n\n", time.Now().Format(dateFormat))
-	fmt.Printf("%v was born on %v\n", person.name, person.birthTime.Format(dateFormat))
-
-	duration := time.Since(person.birthTime)
-	weeks, days, hours, minutes := convertDuration(duration)
-	fmt.Printf("%v has been alive for %.f weeks, %.f days, %.f hours and %.f minutes.\n", person.pronoun, weeks, days, hours, minutes)
+	fmt.Printf("%v was born on %v\n", name, when.Format(dateFormat))
+	fmt.Printf("%v has been alive for %.f weeks, %.f days, %.f hours and %.f minutes.\n", pronoun, weeks, days, hours, minutes)
 }
 
 // Parse date/time with IANA Time Zone
