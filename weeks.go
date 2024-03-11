@@ -55,7 +55,6 @@ func convertDuration(duration time.Duration) (weeks, days, hours, minutes float6
 	weeks, minutes = divMod(minutes, 7*24*60)
 	days, minutes = divMod(minutes, 24*60)
 	hours, minutes = divMod(minutes, 60)
-
 	return weeks, days, hours, minutes
 }
 
