@@ -28,15 +28,15 @@ const (
 
 func main() {
 	// NOTE: Returns time in PST because daylight saving time started in B.C. on Sunday, April 24, 1977
-	when, err := parseTime(birthTime, birthZone)
+	birth, err := parseTime(birthTime, birthZone)
 	if err != nil {
 		fmt.Printf("Error: %v", err)
 		os.Exit(1)
 	}
-	weeks, days, hours, minutes := convertDuration(time.Since(when))
+	weeks, days, hours, minutes := convertDuration(time.Since(birth))
 
 	fmt.Printf("The current time is %v\n\n", time.Now().Format(dateFormat))
-	fmt.Printf("%v was born on %v\n", name, when.Format(dateFormat))
+	fmt.Printf("%v was born on %v\n", name, birth.Format(dateFormat))
 	fmt.Printf("%v has been alive for %.f weeks, %.f days, %.f hours and %.f minutes.\n", pronoun, weeks, days, hours, minutes)
 }
 
