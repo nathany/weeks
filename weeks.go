@@ -29,17 +29,17 @@ func parseTime(date, zone string) (time.Time, error) {
 
 // Convert duration to an integer number of weeks, days, hours, and minutes
 func convertDuration(duration time.Duration) (weeks, days, hours, minutes int) {
-	weeksF := duration.Hours() / 24 / 7
-	daysF := (weeksF - math.Trunc(weeksF)) * 7
-	hoursF := (daysF - math.Trunc(daysF)) * 24
-	minutesF := (hoursF - math.Trunc(hoursF)) * 60
+	h := duration.Hours()
+	w, h := divMod(h, 24*7)
+	d, h := divMod(h, 24)
+	h, m := divMod(h*60, 60)
 
-	weeks = int(math.Trunc(weeksF))
-	days = int(math.Trunc(daysF))
-	hours = int(math.Trunc(hoursF))
-	minutes = int(minutesF)
+	return int(w), int(d), int(h), int(m)
+}
 
-	return weeks, days, hours, minutes
+// divMod divides x/y and returns the quotient and remainder
+func divMod(x, y float64) (float64, float64) {
+	return math.Trunc(x / y), math.Mod(x, y)
 }
 
 func main() {
