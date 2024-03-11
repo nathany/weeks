@@ -28,13 +28,13 @@ func parseTime(date, zone string) (time.Time, error) {
 }
 
 // Convert duration to an integer number of weeks, days, hours, and minutes
-func convertDuration(duration time.Duration) (weeks, days, hours, minutes int) {
-	h := duration.Hours()
-	w, h := divMod(h, 24*7)
-	d, h := divMod(h, 24)
-	h, m := divMod(h*60, 60)
+func convertDuration(duration time.Duration) (weeks, days, hours, minutes float64) {
+	hours = duration.Hours()
+	weeks, hours = divMod(hours, 24*7)
+	days, hours = divMod(hours, 24)
+	hours, minutes = divMod(hours*60, 60)
 
-	return int(w), int(d), int(h), int(m)
+	return weeks, days, hours, minutes
 }
 
 // divMod divides x/y and returns the quotient and remainder
@@ -57,5 +57,5 @@ func main() {
 	duration := time.Since(birthdate)
 
 	weeks, days, hours, minutes := convertDuration(duration)
-	fmt.Printf("He has been alive for %d weeks, %d days, %d hours and %d minutes.\n", weeks, days, hours, minutes)
+	fmt.Printf("He has been alive for %.f weeks, %.f days, %.f hours and %.f minutes.\n", weeks, days, hours, minutes)
 }
