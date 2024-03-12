@@ -60,5 +60,6 @@ func splitDuration(duration time.Duration) (weeks, days, hours, minutes float64)
 
 // divMod divides x/y and returns the quotient and remainder
 func divMod(x, y float64) (float64, float64) {
+	// NOTE: math.Mod to return the remainder, not math.Remainder
 	return math.Trunc(x / y), math.Mod(x, y)
 }
