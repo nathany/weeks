@@ -19,7 +19,9 @@ const (
 // Formats to parse and display times
 const (
 	// Time zone abbreviations such as "CST" are ambiguous: https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations
-	// MST doesn't work quite right with parseLayout even though it's available for display.
+	// MST doesn't work quite right with parseLayout even though timezone abbreviations are available for display.
+	// time.Parse documentation: https://pkg.go.dev/time#Parse
+	// "If the zone abbreviation is unknown, Parse records the... given zone abbreviation and a zero offset."
 	// GitHub Issue: https://github.com/golang/go/issues/24071
 	// "It is not a goal that time.Time.Format and time.Parse be exact reverses of each other."
 	parseLayout = "2006-01-02 3:04 PM"

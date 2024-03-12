@@ -7,6 +7,32 @@ import (
 	"time"
 )
 
+func TestParseTimeBirthdate(t *testing.T) {
+	location, err := time.LoadLocation("America/Vancouver")
+	if err != nil {
+		t.Fatalf("LoadLocation expected no error, but got %v", err)
+	}
+
+	birth, err := parseTime("1977-04-05 11:58 AM", "America/Vancouver")
+	if err != nil {
+		t.Fatalf("parseTime expected no error, but got %v", err)
+	}
+
+	expected := time.Date(1977, 4, 5, 11, 58, 0, 0, location)
+
+	if !birth.Equal(expected) {
+		t.Errorf("Expected time %v, got %v", expected, birth)
+	}
+}
+
+func TestParseTimeInvalidZone(t *testing.T) {
+	_, err := parseTime("2024-03-11 8:33 PM", "Invalid/Zone")
+	expected := "unknown time zone Invalid/Zone"
+	if err.Error() != expected {
+		t.Fatalf("parseTime expected error %v, but got %v", expected, err)
+	}
+}
+
 func TestSplitDuration(t *testing.T) {
 	var tests = []struct {
 		duration                    string
