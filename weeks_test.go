@@ -13,6 +13,7 @@ func TestParseTimeBirthdate(t *testing.T) {
 		t.Fatalf("LoadLocation expected no error, but got %v", err)
 	}
 
+	// NOTE: Returns time in PST because daylight saving time started in B.C. on Sunday, April 24, 1977
 	birth, err := parseTime("1977-04-05 11:58 AM", "America/Vancouver")
 	if err != nil {
 		t.Fatalf("parseTime expected no error, but got %v", err)
